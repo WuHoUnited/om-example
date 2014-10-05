@@ -11,8 +11,8 @@
 (enable-console-print!)
 
 (def DEFAULT_DATA (mapv c/->Datum
-                        ["New York" "Virginia" "Oklahoma"]
-                        [20 30 5]))
+                        ["New York" "Virginia" "Oklahoma" "California"]
+                        [60 20 30 5]))
 
 (def app-state (atom {:data DEFAULT_DATA}))
 

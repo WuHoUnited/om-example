@@ -7,13 +7,34 @@
 
 (enable-console-print!)
 
-(def WIDTH 100)
-(def HEIGHT 100)
-(def X_AXIS_OFFSET 10)
-(def Y_AXIS_OFFSET 33)
+(def BAR_HEIGHT 10)
+(def BAR_SPACING 5)
+
+(def CANVAS_WIDTH 600)
+
+(def LETTER_WIDTH 4)
+(def LETTER_BASE 0)
 
 (defn get-max-value [data]
   (:value (apply max-key :value data)))
+
+(defn calculate-height [data]
+  (let [bars (count data)]
+    (+ (* bars BAR_HEIGHT)
+       (* (inc bars) BAR_SPACING))))
+
+(defn draw-y-axis [data]
+  [:line.bar-axis {:x1 0
+                   :x2 0
+                   :y1 0
+                   :y2 (calculate-height data)}])
+
+(defn calculate-word-width [data]
+  (let [search-fn (comp count :name)
+        longest-val (apply max-key search-fn data)
+        longest-length (search-fn longest-val)]
+    (+ LETTER_BASE
+       (* LETTER_WIDTH longest-length))))
 
 (defn add-scale [data]
   (let [max-value (get-max-value data)]
@@ -21,45 +42,33 @@
             (assoc-in d [::scaled-value] (/ value max-value)))
           data)))
 
-(defn draw-bars [data]
+(defn draw-bars [{:keys [data axis-offset]}]
   (let [scaled-data (add-scale data)
-        working-width (- WIDTH Y_AXIS_OFFSET)
-        working-height (- HEIGHT X_AXIS_OFFSET)
-        bar-height (/ working-height
-                      (+ 1
-                         (* 2 (count data))))
-        double-bar-height (* bar-height 2)]
+        bar-height-and-spacing (+ BAR_HEIGHT BAR_SPACING)]
     (map (fn [{:keys [name value] scaled-value ::scaled-value} top]
-           (list [:rect.bar {:x Y_AXIS_OFFSET
+           (list [:rect.bar {:x 0
                              :y top
-                             :width (* working-width scaled-value)
-                             :height bar-height}]
-                 [:text.bar-name {:x 0
-                                  :y (+ top bar-height -5) }
+                             :width (* CANVAS_WIDTH scaled-value)
+                             :height BAR_HEIGHT}]
+                 [:text.bar-name {:x (- axis-offset)
+                                  :y (+ top BAR_HEIGHT -3)
+                                  ;:text-anchor "end" ; the text-anchor does not behave how i thought it would
+                                  }
                   name]))
          scaled-data
-         (iterate #(+ double-bar-height %) bar-height))))
-
-(defn draw-x-axis []
-  [:line.bar-axis {:x1 X_AXIS_OFFSET
-                   :x2 WIDTH
-                   :y1 Y_AXIS_OFFSET
-                   :y2 Y_AXIS_OFFSET}])
-
-(defn draw-y-axis []
-  [:line.bar-axis {:x1 Y_AXIS_OFFSET
-                   :x2 Y_AXIS_OFFSET
-                   :y1 0
-                   :y2 HEIGHT}])
+         (iterate #(+ bar-height-and-spacing %) BAR_SPACING))))
 
 (defn bar [{:keys [data]}]
   (om/component
    (html
-    [:svg {;:width WIDTH
-           ;:height HEIGHT
-           :viewBox (apply str (interpose \space [0 0 WIDTH HEIGHT]))
-           :preserveAspectRatio "none"
-           :className "bar-graph"}
-     ;(draw-x-axis)
-     (draw-bars data)
-     (draw-y-axis)])))
+    (let [axis-offset (calculate-word-width data)]
+      [:svg {;:width WIDTH
+             ;:height HEIGHT
+             :viewBox (apply str (interpose \space [0 0 (+ axis-offset CANVAS_WIDTH) (calculate-height data)]))
+             :preserveAspectRatio "none"
+             :className "bar-graph"}
+       ;(draw-x-axis)
+       [:g {:transform (str "translate("  axis-offset ",0)")}
+        (draw-bars {:data data
+                    :axis-offset axis-offset})
+        (draw-y-axis data)]]))))
