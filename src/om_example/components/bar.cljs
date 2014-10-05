@@ -15,6 +15,9 @@
 (def LETTER_WIDTH 4)
 (def LETTER_BASE 0)
 
+(def TEXT_VERTICAL_OFFSET -3)
+(def VALUE_TEXT_HORIZONTAL_OFFSET 1)
+
 (defn get-max-value [data]
   (:value (apply max-key :value data)))
 
@@ -51,10 +54,14 @@
                              :width (* CANVAS_WIDTH scaled-value)
                              :height BAR_HEIGHT}]
                  [:text.bar-name {:x (- axis-offset)
-                                  :y (+ top BAR_HEIGHT -3)
+                                  :y (+ top BAR_HEIGHT TEXT_VERTICAL_OFFSET)
                                   ;:text-anchor "end" ; the text-anchor does not behave how i thought it would
                                   }
-                  name]))
+                  name]
+                 [:text.bar-value {:x VALUE_TEXT_HORIZONTAL_OFFSET
+                                   :y (+ top BAR_HEIGHT TEXT_VERTICAL_OFFSET)
+                                   }
+                  value]))
          scaled-data
          (iterate #(+ bar-height-and-spacing %) BAR_SPACING))))
 

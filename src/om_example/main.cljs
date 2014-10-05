@@ -10,9 +10,12 @@
 
 (enable-console-print!)
 
-(def DEFAULT_DATA (mapv c/->Datum
-                        ["New York" "Virginia" "Oklahoma" "California"]
-                        [60 20 30 5]))
+(def DEFAULT_DATA
+  (->> (map c/->Datum
+            ["Maine" "New Hampshire" "Vertmont" "Massachusetts" "New York" "Rhode Island" "Connecticut"]
+            [4 4 3 11 29 4 7])
+       (sort-by (comp - :value))
+       vec))
 
 (def app-state (atom {:data DEFAULT_DATA}))
 

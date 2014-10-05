@@ -11,8 +11,7 @@
   fill: rgba(100, 100, 255, 0.5);
 }
 
-.bar-name{
+.bar-name, .bar-value{
   fill: rgba(0, 0, 0, 1);
-  text-anchor: start;
   font-size: 7;
 }
