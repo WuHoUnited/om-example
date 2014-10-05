@@ -10,4 +10,4 @@ Some of the components may be editable and when edited you will see how the chan
 
 1) Compile the code with `lein cljsbuild once prod`
 
-2) Open the public/prod/index.html file in a web-browser
+2) Open the `public/prod/index.html` file in a web-browser
