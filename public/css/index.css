@@ -1,0 +1,18 @@
+.bar-axis{
+  stroke: #000;
+}
+
+.bar-graph{
+  /*height: 600;*/
+  width: 300;
+}
+
+.bar{
+  fill: rgba(100, 100, 255, 0.5);
+}
+
+.bar-name{
+  fill: rgba(0, 0, 0, 1);
+  text-anchor: start;
+  font-size: 7;
+}
