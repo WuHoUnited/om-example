@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #om-example
 
 This project contains some examples of `ClojureScript` and `Om` code.
