@@ -6,10 +6,7 @@
             [om-example.components.utility :as u]))
 
 (defn to-float [s]
-  (println s)
   (let [n (js/parseFloat s)]
-    (println n)
-    (println (js/isNaN n))
     (if (js/isNaN n)
       0
       n)))

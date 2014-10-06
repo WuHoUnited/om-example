@@ -16,7 +16,7 @@
 (def LETTER_BASE 0.2)
 
 (def TEXT_VERTICAL_OFFSET -3)
-(def VALUE_TEXT_HORIZONTAL_OFFSET 1)
+(def VALUE_TEXT_HORIZONTAL_OFFSET 2)
 
 (defn get-max-value [data]
   (:value (apply max-key :value data)))
@@ -69,11 +69,11 @@
   (om/component
    (html
     (let [axis-offset (calculate-word-width data)]
-      [:svg.bar {;:width WIDTH
-                 ;:height HEIGHT
-                 :viewBox (apply str (interpose \space [0 0 (+ axis-offset CANVAS_WIDTH) (calculate-height data)]))
-                 :preserveAspectRatio "none"
-                 :className "bar-graph"}
+      [:svg.bar-chart {;:width WIDTH
+                       ;:height HEIGHT
+                       :viewBox (apply str (interpose \space [0 0 (+ axis-offset CANVAS_WIDTH) (calculate-height data)]))
+                       :preserveAspectRatio "none"
+                       :className "bar-graph"}
        ;(draw-x-axis)
        [:g {:transform (str "translate("  axis-offset ",0)")}
         (draw-bars {:data data
