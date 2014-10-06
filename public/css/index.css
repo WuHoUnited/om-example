@@ -1,3 +1,5 @@
+/* CSS for the main page*/
+
 .instructions{
   max-width: 30em;
   border: 1px solid #aaa;
@@ -6,22 +8,24 @@
   margin: 1em;
 }
 
+
+/* Table views */
+
 .table{
   margin: 1em;
   margin-right: 5em;
   display: inline-block;
 }
 
+
+/* SVG views.*/
+
+.bar-chart{
+  margin: 1em;
+}
+
 .bar-axis{
   stroke: #999;
-}
-
-.bar-graph{
-
-}
-
-.bar{
-  fill: #4682b4;
 }
 
 .bar-name, .bar-value{
@@ -33,10 +37,17 @@
 
 }
 
-.bar-chart{
-  margin: 1em;
+.bar-graph{
+
 }
 
 .bar-value{
+  /* This choice of fill-color contrasts nicely with the bar,
+  however it is pretty much invisible on a white background,
+  so feel free to change it.*/
   fill: #fff8dc;
+}
+
+.bar{
+  fill: #4682b4;
 }

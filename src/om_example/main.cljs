@@ -1,4 +1,7 @@
 (ns om-example.main
+  "Namespace with the main entry point.
+  This namespace will be responsible for instantiating new data and
+  beginning to render to the DOM."
   (:require [om.core :as om :include-macros true]
 
             [sablono.core :as html :refer-macros [html]]
@@ -10,28 +13,45 @@
             [om-example.components.simple-table :as simple-table]
             ))
 
+;; Standard setup of contants
+
 (enable-console-print!)
 
-(def DEFAULT_DATA
+(def ^:const DEFAULT_DATA
+  "This represents the initial data to be rendered.
+  Currently it holds the number of electoral college votes for the Northeastern states
+  sorted by number/name."
   (->> (map c/->Datum
             ["Maine" "New Hampshire" "Vertmont" "Massachusetts" "New York" "Rhode Island" "Connecticut"]
             [4 4 3 11 29 4 7])
-       (sort-by (comp - :value))
+       (sort-by (fn [d] [((comp - :value) d) (:name d)]))
        vec))
 
 (def INSTRUCTIONS
+  "Instructions for users viewing the screen."
   "This page is interactive. Some text boxes such as those in the table are editable.
   If you click on them, they will turn into text fields which you can edit.
   Notice how changes to the fields are reflected immediately and automatically in other parts of the page.")
 
-(def app-state (atom {:data DEFAULT_DATA}))
+(def app-state
+  "This will hold the entire state of the application and is what
+  Om will reference."
+  (atom {:data DEFAULT_DATA}))
 
-(defn instruction-view [{:keys [text]} owner]
+;; Setup Main DOM views
+
+(defn instruction-view
+  "A component which contains the instructions for the user viewing the web-page."
+  [{:keys [text]} owner]
   (om/component
    (html [:div.instructions
           INSTRUCTIONS])))
 
-(defn app-view [data owner]
+;; app-view takes in the app-state. Notice how the app-state passes
+;; The exact same data value to the edit-table, simple-table and bar-chart components.
+(defn app-view
+  "Overall view which contains everything."
+  [data owner]
   (om/component
    (html [:div
           (om/build instruction-view {:text INSTRUCTIONS})
@@ -39,6 +59,8 @@
           (om/build simple-table/simple-table data)
           (om/build bar-chart/bar-chart data)
           ])))
+
+;; Begin Rendering to the DOM
 
 (om/root
  app-view
