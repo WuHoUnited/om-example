@@ -1,4 +1,4 @@
-(ns om-example.components.table
+(ns om-example.components.edit-table
   (:require [om.core :as om :include-macros true]
 
             [sablono.core :as html :refer-macros [html]]
@@ -14,12 +14,12 @@
       0
       n)))
 
-(defn table
+(defn edit-table
   "Generates a table view of data"
   [{:keys [data]}]
   (om/component
    (html
-    [:table
+    [:table.table
      [:thead
       [:tr
        [:th "Name"]
@@ -33,4 +33,3 @@
                                                    {:edit-key :value
                                                     :handle-fn to-float}})]])
                    data)]])))
-

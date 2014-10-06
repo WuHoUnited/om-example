@@ -1,4 +1,4 @@
-(ns om-example.components.bar
+(ns om-example.components.bar-chart
   (:require [om.core :as om :include-macros true]
 
             [sablono.core :as html :refer-macros [html]]
@@ -12,8 +12,8 @@
 
 (def CANVAS_WIDTH 600)
 
-(def LETTER_WIDTH 4)
-(def LETTER_BASE 0)
+(def LETTER_WIDTH 3.6)
+(def LETTER_BASE 0.2)
 
 (def TEXT_VERTICAL_OFFSET -3)
 (def VALUE_TEXT_HORIZONTAL_OFFSET 1)
@@ -65,15 +65,15 @@
          scaled-data
          (iterate #(+ bar-height-and-spacing %) BAR_SPACING))))
 
-(defn bar [{:keys [data]}]
+(defn bar-chart [{:keys [data]}]
   (om/component
    (html
     (let [axis-offset (calculate-word-width data)]
-      [:svg {;:width WIDTH
-             ;:height HEIGHT
-             :viewBox (apply str (interpose \space [0 0 (+ axis-offset CANVAS_WIDTH) (calculate-height data)]))
-             :preserveAspectRatio "none"
-             :className "bar-graph"}
+      [:svg.bar {;:width WIDTH
+                 ;:height HEIGHT
+                 :viewBox (apply str (interpose \space [0 0 (+ axis-offset CANVAS_WIDTH) (calculate-height data)]))
+                 :preserveAspectRatio "none"
+                 :className "bar-graph"}
        ;(draw-x-axis)
        [:g {:transform (str "translate("  axis-offset ",0)")}
         (draw-bars {:data data

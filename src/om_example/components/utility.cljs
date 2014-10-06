@@ -4,14 +4,17 @@
 
             [sablono.core :as html :refer-macros [html]]))
 
-
 (defn display [show]
   (if show
     #js {}
     #js {:display "none"}))
 
-(defn end-edit [text owner]
+(defn end-edit [owner]
   (om/set-state! owner :editing false))
+
+(defn begin-edit [owner]
+  (om/set-state! owner :editing true)
+  (js/setTimeout #(.focus (om/get-node owner "input")) 0))
 
 (defn handle-change [e data edit-key handle-fn owner]
   (let [handle-fn (or handle-fn identity)
@@ -27,17 +30,18 @@
     (render-state [_ {:keys [editing]}]
                   (let [text (get data edit-key)]
                     (dom/span nil
-                            (dom/span #js {:style (display (not editing))} text)
-                            (dom/input
-                             #js {:style (display editing)
-                                  :value text
-                                  :onChange #(handle-change % data edit-key handle-fn owner)
-                                  :onKeyPress #(when (== (.-keyCode %) 13)
-                                                 (end-edit text owner))
-                                  :onBlur (fn [e]
-                                            (when (om/get-state owner :editing)
-                                              (end-edit text owner)))})
-                            (dom/button
-                             #js {:style (display (not editing))
-                                  :onClick #(om/set-state! owner :editing true)}
-                             "Edit"))))))
+                              (dom/span #js {:style (display (not editing))} text)
+                              (dom/input
+                               #js {:style (display editing)
+                                    :value text
+                                    :onChange #(handle-change % data edit-key handle-fn owner)
+                                    :onKeyDown #(when (== (.-keyCode %) 13)
+                                                  (end-edit owner))
+                                    :onBlur (fn [e]
+                                              (when (om/get-state owner :editing)
+                                                (end-edit owner)))
+                                    :ref "input"})
+                              (dom/button
+                               #js {:style (display (not editing))
+                                    :onClick #(begin-edit owner) }
+                               "Edit"))))))

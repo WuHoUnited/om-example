@@ -5,8 +5,10 @@
 
             [om-example.core :as c]
 
-            [om-example.components.table :as table]
-            [om-example.components.bar :as bar]))
+            [om-example.components.edit-table :as edit-table]
+            [om-example.components.bar-chart :as bar-chart]
+            [om-example.components.simple-table :as simple-table]
+            ))
 
 (enable-console-print!)
 
@@ -17,18 +19,28 @@
        (sort-by (comp - :value))
        vec))
 
+(def INSTRUCTIONS
+  "This page is interactive. Some text boxes such as those in the table are editable.
+  If you click on them, they will turn into text fields which you can edit.
+  Notice how changes to the fields are reflected immediately and automatically in other parts of the page.")
+
 (def app-state (atom {:data DEFAULT_DATA}))
+
+(defn instruction-view [{:keys [text]} owner]
+  (om/component
+   (html [:div.instructions
+          INSTRUCTIONS])))
 
 (defn app-view [data owner]
   (om/component
    (html [:div
-          (om/build table/table data)
-          (om/build bar/bar data)
+          (om/build instruction-view {:text INSTRUCTIONS})
+          (om/build edit-table/edit-table data)
+          (om/build simple-table/simple-table data)
+          (om/build bar-chart/bar-chart data)
           ])))
 
 (om/root
- ;table/table
- ;bar/bar
  app-view
  app-state
  {:target (. js/document (getElementById "app"))})
