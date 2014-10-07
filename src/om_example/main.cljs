@@ -27,9 +27,9 @@
        (sort-by (fn [d] [((comp - :value) d) (:name d)]))
        vec))
 
-(def INSTRUCTIONS
+(def ^:const INSTRUCTIONS
   "Instructions for users viewing the screen."
-  "This page is interactive. Some text boxes such as those in the table are editable.
+  "This page is interactive. Some text boxes such as those in one of the tables are editable.
   If you click on them, they will turn into text fields which you can edit.
   Notice how changes to the fields are reflected immediately and automatically in other parts of the page.")
 

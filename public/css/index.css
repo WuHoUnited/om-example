@@ -1,8 +1,13 @@
 /* CSS for the main page*/
 
+
+body{
+  font-family: sans-serif;
+}
+
 .instructions{
   max-width: 30em;
-  border: 1px solid #aaa;
+  border: 2px solid #aaa;
   border-radius: 1em;
   padding: 1em;
   margin: 1em;
@@ -17,7 +22,7 @@
 .editable{
   border: none;
   padding: 4px;
-  outline-width: 0;
+  outline: none;
 }
 
 .editable:focus, .editable:hover{

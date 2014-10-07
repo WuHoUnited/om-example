@@ -37,7 +37,7 @@
 (def LETTER_WIDTH "This is an estimate of how wide an average letter appears to be in SVG."
   3.6)
 (def LETTER_BASE "This is a fixed amount to use in estimating the width of an SVG String."
-  0.2)
+  5)
 
 ;; Define helper functions
 
