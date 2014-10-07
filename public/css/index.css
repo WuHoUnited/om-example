@@ -10,7 +10,9 @@
 
 /* Editable */
 
-/*  */
+/* It is important in this style that the
+   border + padding is always equal so that the size of the component
+   is constant. */
 
 .editable{
   border: none;

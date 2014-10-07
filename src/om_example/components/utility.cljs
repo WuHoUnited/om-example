@@ -5,6 +5,12 @@
 
             [sablono.core :as html :refer-macros [html]]))
 
+
+;; Begin editable component.
+;; The editable component will be a thin wrapper of a text input field,
+;; which can do a very simple bit of validation.
+;; The magic of the field will be in the CSS.
+
 (defn- handle-change
   "function to call whenever the value for the editable component is attempted to be changed.
   e is the event, data is the cursor to update, edit-key is the key within data,

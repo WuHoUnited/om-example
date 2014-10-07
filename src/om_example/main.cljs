@@ -22,7 +22,7 @@
   Currently it holds the number of electoral college votes for the Northeastern states
   sorted by number/name."
   (->> (map c/->Datum
-            ["Maine" "New Hampshire" "Vertmont" "Massachusetts" "New York" "Rhode Island" "Connecticut"]
+            ["Maine" "New Hampshire" "Vermont" "Massachusetts" "New York" "Rhode Island" "Connecticut"]
             [4 4 3 11 29 4 7])
        (sort-by (fn [d] [((comp - :value) d) (:name d)]))
        vec))
