@@ -8,6 +8,21 @@
   margin: 1em;
 }
 
+/* Editable */
+
+/*  */
+
+.editable{
+  border: none;
+  padding: 4px;
+  outline-width: 0;
+}
+
+.editable:focus, .editable:hover{
+  border: 2px solid #4682b4;
+  padding: 2px;
+  border-radius: 5px;
+}
 
 /* Table views */
 
