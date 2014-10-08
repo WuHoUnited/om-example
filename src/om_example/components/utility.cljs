@@ -19,7 +19,7 @@
   [e data edit-key handle-fn]
   (let [handle-fn (or handle-fn identity)
         new-val (handle-fn (.. e -target -value))]
-    (om/transact! data edit-key (constantly new-val))))
+    (om/update! data edit-key new-val)))
 
 (defn editable
   "generates a component which allows editing of a single value.
