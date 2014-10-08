@@ -27,7 +27,7 @@
   [{:keys [data]}]
   (om/component
    (html
-    [:table.table
+    [:table.edit-table
      [:thead
       [:tr
        [:th "Name"]

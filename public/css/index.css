@@ -16,8 +16,8 @@ body{
 /* Editable */
 
 /* It is important in this style that the
-   border + padding is always equal so that the size of the component
-   is constant. */
+border + padding is always equal so that the size of the component
+is constant. */
 
 .editable{
   border: none;
@@ -33,12 +33,29 @@ body{
 
 /* Table views */
 
-.table{
+.table, .edit-table{
   margin: 1em;
   margin-right: 5em;
   display: inline-block;
 }
 
+.table{
+  color: #fff;
+}
+
+.table > tbody > tr:hover > td{
+  background-color: #66a2d4;
+}
+
+.table > tbody > tr > td, .table > thead > tr > th{
+  background-color: #4682b4;
+  padding: 0.4em;
+}
+
+.table > thead > tr > th {
+  padding: 0.8em;
+  background-color: #165284;
+}
 
 /* SVG views.*/
 
@@ -65,9 +82,10 @@ body{
 
 .bar-value{
   /* This choice of fill-color contrasts nicely with the bar,
-  however it is pretty much invisible on a white background,
+  however it is invisible on a white background
+  (which if the value is near-zero it is)
   so feel free to change it.*/
-  fill: #fff8dc;
+  fill: #fff;
 }
 
 .bar{
