@@ -19,8 +19,7 @@
 
 (def BAR_HEIGHT "The height of a bar."
   10)
-(def BAR_SPACING
-  "The vertical distance between bars."
+(def BAR_SPACING "The vertical distance between bars."
   5)
 
 (def CANVAS_WIDTH "The width of the canvas on which the bars will be rendered."
