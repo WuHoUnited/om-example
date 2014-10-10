@@ -17,7 +17,6 @@
       0
       n)))
 
-
 ;; Note how the editable component is re-used.
 ;; Also note the similarity between edit-table and simple-table.
 ;; Could you see how to create a new function which would remove the need for
@@ -35,9 +34,9 @@
      [:tbody
       (map-indexed (fn [index {:keys [name value] :as d}]
                      [:tr {:key index}
-                      [:td (om/build u/editable d {:opts
-                                                   {:edit-key :name}})]
-                      [:td (om/build u/editable d {:opts
-                                                   {:edit-key :value
-                                                    :handle-fn to-float}})]])
+                      [:td (om/build u/editable {:data d
+                                                 :edit-key :name})]
+                      [:td (om/build u/editable {:data d
+                                                 :edit-key :value
+                                                 :handle-fn to-float})]])
                    data)]])))
