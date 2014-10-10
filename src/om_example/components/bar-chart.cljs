@@ -43,7 +43,9 @@
 (defn- get-max-value
   "Gets the maximum value for the :value key in data."
   [data]
-  (:value (apply max-key :value data)))
+  (->> data
+       (map :value)
+       (apply max)))
 
 (defn- calculate-height
   "Calculates the total height of the SVG. This is based on the number of data points."
@@ -64,9 +66,9 @@
   "This function estimates how wide the 'label' portion of the SVG should be.
   The longer the longest label, the wider that portion of the SVG has to be."
   [data]
-  (let [search-fn (comp count :name)
-        longest-val (apply max-key search-fn data)
-        longest-length (search-fn longest-val)]
+  (let [longest-length (->> data
+                            (map (comp count :name))
+                            (apply max))]
     (+ LETTER_BASE
        (* LETTER_WIDTH longest-length))))
 
