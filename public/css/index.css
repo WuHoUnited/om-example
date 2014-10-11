@@ -23,12 +23,12 @@ is constant. */
   border: none;
   padding: 4px;
   outline: none;
+  border-radius: 5px;
 }
 
 .editable:focus, .editable:hover{
   border: 2px solid #4682b4;
   padding: 2px;
-  border-radius: 5px;
 }
 
 /* Table views */
@@ -85,4 +85,59 @@ is constant. */
 
 .bar{
   fill: #4682b4;
+}
+
+
+/* HTML bar chart */
+
+.html-bar-table{
+  display: table;
+  margin: 1em;
+}
+
+.html-bar-body{
+  display: table-row-group;
+}
+
+.html-bar-row{
+  display: table-row;
+}
+
+.html-bar-first {
+  display: table-cell;
+  white-space: nowrap;
+  padding: 0em 0em;
+  border-right: solid #999;
+  text-align: right;
+}
+
+.html-bar-first > input{
+  text-align: right;
+}
+
+.html-bar-second{
+  display: table-cell;
+  width: 100%;
+}
+
+.html-bar {
+  background-color: #4682b4;
+  color: #fff;
+  margin: 1px 0;
+  padding: .2em;
+  transition: width 1s;
+}
+
+.html-bar > input.editable{
+  background-color: #4682b4;
+  color: #fff;
+}
+
+.html-bar > input.editable:focus, .html-bar > input.editable:hover{
+  border: 2px solid #fff;
+  padding: 2px;
+}
+
+.html-bar:hover, .html-bar:hover > input.editable{
+  background-color: #66a2d4
 }

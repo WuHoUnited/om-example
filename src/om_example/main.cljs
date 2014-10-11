@@ -10,6 +10,7 @@
 
             [om-example.components.edit-table :as edit-table]
             [om-example.components.bar-chart :as bar-chart]
+            [om-example.components.html-bar-chart :as html-bar-chart]
             [om-example.components.simple-table :as simple-table]
             ))
 
@@ -55,6 +56,7 @@
   (om/component
    (html [:div
           (om/build instruction-view {:text INSTRUCTIONS})
+          (om/build html-bar-chart/html-bar-chart data)
           (om/build edit-table/edit-table data)
           (om/build simple-table/simple-table data)
           (om/build bar-chart/bar-chart data)
@@ -66,4 +68,3 @@
  app-view
  app-state
  {:target (. js/document (getElementById "app"))})
-

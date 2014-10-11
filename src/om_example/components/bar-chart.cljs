@@ -4,7 +4,8 @@
 
             [sablono.core :as html :refer-macros [html]]
 
-            [om-example.core :as c]))
+            [om-example.core :as c]
+            [om-example.components.utility :as u]))
 
 (enable-console-print!)
 
@@ -40,13 +41,6 @@
 
 ;; Define helper functions
 
-(defn- get-max-value
-  "Gets the maximum value for the :value key in data."
-  [data]
-  (->> data
-       (map :value)
-       (apply max)))
-
 (defn- calculate-height
   "Calculates the total height of the SVG. This is based on the number of data points."
   [data]
@@ -72,14 +66,7 @@
     (+ LETTER_BASE
        (* LETTER_WIDTH longest-length))))
 
-(defn- add-scale
-  "This function adds a ::scaled-value keyword which indicates the fraction of
-  each piece of data in comparison to the largest piece of data."
-  [data]
-  (let [max-value (get-max-value data)]
-    (mapv (fn [{:keys [value] :as d}]
-            (assoc-in d [::scaled-value] (/ value max-value)))
-          data)))
+(om_example.components.utility/add-scale [{:name "New York" :value 10}])
 
 (defn- draw-bars
   "Generates a sablono vector for the bars and acompanying text.
@@ -87,9 +74,9 @@
   The axis is actually at the line x=0 with the labels on the left and the bars on the right.
   The component will actually be offset by its parent so this doesn't seem so strange."
   [{:keys [data axis-offset]}]
-  (let [scaled-data (add-scale data)                                ; add the ratio of each datum to the largest
+  (let [scaled-data (u/add-scale data)                                ; add the ratio of each datum to the largest
         bar-height-and-spacing (+ BAR_HEIGHT BAR_SPACING)]          ; cache this piece of data for later.
-    (map (fn [{:keys [name value] scaled-value ::scaled-value} top] ; top is the top of the bar.
+    (map (fn [{:keys [name value] scaled-value :om-example.components.utility/scaled-value} top] ; top is the top of the bar.
            (list [:rect.bar {:x 0                                   ; the bar
                              :y top
                              :width (* CANVAS_WIDTH scaled-value)

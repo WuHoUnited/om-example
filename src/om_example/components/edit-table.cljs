@@ -7,16 +7,6 @@
 
             [om-example.components.utility :as u]))
 
-(defn- to-float
-  "converts a String s to a float.
-  If s cannot be converted then 0 is returned.
-  Perhaps nil would be a better choice."
-  [s]
-  (let [n (js/parseFloat s)]
-    (if (js/isNaN n)
-      0
-      n)))
-
 ;; Note how the editable component is re-used.
 ;; Also note the similarity between edit-table and simple-table.
 ;; Could you see how to create a new function which would remove the need for
@@ -38,5 +28,5 @@
                                                  :edit-key :name})]
                       [:td (om/build u/editable {:data d
                                                  :edit-key :value
-                                                 :handle-fn to-float})]])
+                                                 :handle-fn u/to-float})]])
                    data)]])))
