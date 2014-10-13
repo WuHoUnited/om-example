@@ -57,6 +57,23 @@ is constant. */
   background-color: #165284;
 }
 
+/* Add Another */
+
+button.add {
+  background-color: #4682b4;
+  color: #fff;
+  border: 2px solid #165284;
+  border-radius: .5em;
+  font-size: 1em;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+button.add:hover, button.add:focus{
+  background-color: #165284;
+  border: 2px solid #4682b4;
+}
+
 /* SVG views.*/
 
 .bar-chart{

@@ -12,6 +12,7 @@
             [om-example.components.bar-chart :as bar-chart]
             [om-example.components.html-bar-chart :as html-bar-chart]
             [om-example.components.simple-table :as simple-table]
+            [om-example.components.add-another :as add-another]
             ))
 
 ;; Standard setup of contants
@@ -57,6 +58,9 @@
    (html [:div
           (om/build instruction-view {:text INSTRUCTIONS})
           (om/build html-bar-chart/html-bar-chart data)
+          (om/build add-another/add-another
+                    {:coll (:data data)
+                     :value c/default-datum})
           (om/build edit-table/edit-table data)
           (om/build simple-table/simple-table data)
           (om/build bar-chart/bar-chart data)
@@ -68,3 +72,4 @@
  app-view
  app-state
  {:target (. js/document (getElementById "app"))})
+

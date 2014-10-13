@@ -15,3 +15,6 @@
   IDatum
   (get-name [this] name)
   (get-value [this] value))
+
+(def default-datum
+  (->Datum "(Default)" 0))
